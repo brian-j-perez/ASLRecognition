@@ -1,6 +1,8 @@
 import streamlit as st
 from streamlit_webrtc import webrtc_streamer, VideoProcessorBase, WebRtcMode
 import av
+from turn import get_ice_servers
+
 
 # Show title and description.
 st.title("🤟 ASL Recognition System")
@@ -48,8 +50,8 @@ if enable_camera:
         mode=WebRtcMode.SENDRECV,
         video_processor_factory=VideoRecorder,
         media_stream_constraints={"video": True, "audio": False},
+        rtc_configuration={"iceServers": get_ice_servers()},
     )
-
 # Buttons to start/stop recording.
 col1, col2 = st.columns(2)
 with col1:
